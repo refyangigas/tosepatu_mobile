@@ -29,7 +29,7 @@ class _ordersState extends State<orders> {
                     ),
                     child: Builder(
                       builder: (context) => IconButton(
-                        icon: Icon(Icons.),
+                        icon: Icon(Icons.shopping_cart),
                         onPressed: () {
                           Scaffold.of(context).openDrawer();
                         },
@@ -52,7 +52,7 @@ class _ordersState extends State<orders> {
                   ),
                   Builder(
                     builder: (context) => IconButton(
-                      icon: Icon(Icons.email_outlined),
+                      icon: Icon(Icons.shopping_cart),
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
