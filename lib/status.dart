@@ -60,6 +60,70 @@ class _statusState extends State<status> {
                   )
                 ],
               ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                      height: 80,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            offset: Offset(
+                              9,
+                              9,
+                            ),
+                            blurRadius: 5,
+                          ),
+                        ],
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            padding: EdgeInsets.only(left: 10, right: 2),
+                          ),
+                          Expanded(
+                            child: Text("Y"),
+                            flex: 2,
+                          ),
+                          Expanded(
+                            child: Text("Y1"),
+                            flex: 1,
+                          ),
+                          Expanded(
+                            child: Text("Y2"),
+                            flex: 1,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .amber, // Warna latar belakang Container
+                              borderRadius: BorderRadius.circular(
+                                  8.0), // Mengatur sudut Container
+                            ),
+                            child: Text(
+                              'Selesai',
+                              style: TextStyle(
+                                fontSize: 16.0, // Ukuran teks
+                                color: Colors.white, // Warna teks
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          )
+                        ],
+                      )),
+                ],
+              ),
             ],
           ),
         ),
