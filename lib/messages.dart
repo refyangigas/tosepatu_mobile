@@ -29,7 +29,7 @@ class _messagesState extends State<messages> {
                     ),
                     child: Builder(
                       builder: (context) => IconButton(
-                        icon: Icon(Icons.access_alarms_rounded),
+                        icon: Icon(Icons.email_outlined),
                         onPressed: () {
                           Scaffold.of(context).openDrawer();
                         },
@@ -52,7 +52,7 @@ class _messagesState extends State<messages> {
                   ),
                   Builder(
                     builder: (context) => IconButton(
-                      icon: Icon(Icons.access_alarms_rounded),
+                      icon: Icon(Icons.email_outlined),
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
