@@ -103,6 +103,8 @@ class _statusState extends State<status> {
                             flex: 1,
                           ),
                           Container(
+                            height: 20,
+                            width: 55,
                             decoration: BoxDecoration(
                               color: Colors
                                   .amber, // Warna latar belakang Container
