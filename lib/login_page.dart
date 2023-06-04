@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tosepatu_mobile/API/service.dart';
 import 'package:tosepatu_mobile/bottomnav.dart';
 import 'package:tosepatu_mobile/register_page.dart';
 
@@ -16,6 +19,59 @@ class login extends StatefulWidget {
 }
 
 class _loginState extends State<login> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Future<void> _handleLogin() async {
+    String emailOrUsername = emailController.text;
+    String password = passwordController.text;
+    AuthService authService = AuthService();
+    try {
+      await authService.login(emailOrUsername, password);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => bottomnav(),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(
+                Icons.close,
+                color: Colors.white,
+                size: 40,
+              ),
+              Text(
+                e.toString(),
+                style: TextStyle(fontSize: 8),
+              ),
+            ],
+          ),
+          duration: Duration(seconds: 5),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Colors.red, width: 2.0),
+          ),
+          backgroundColor: Colors.red,
+          elevation: 5.0,
+          margin: EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            textColor: Colors.white,
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -104,6 +160,7 @@ class _loginState extends State<login> {
                               child: Column(
                                 children: [
                                   TextFormField(
+                                    controller: emailController,
                                     keyboardType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.next,
                                     cursorColor:
@@ -121,6 +178,7 @@ class _loginState extends State<login> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 16.0),
                                     child: TextFormField(
+                                      controller: passwordController,
                                       textInputAction: TextInputAction.done,
                                       obscureText: true,
                                       cursorColor: Colors.amber,
@@ -138,12 +196,7 @@ class _loginState extends State<login> {
                                     tag: "login_btn",
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  bottomnav()),
-                                        );
+                                        _handleLogin();
                                       },
                                       child: Text(
                                         "Login".toUpperCase(),

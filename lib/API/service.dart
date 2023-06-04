@@ -1,42 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyHomePage extends StatelessWidget {
-  Future<Map<String, dynamic>> fetchData() async {
-    final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/api/login'),
-      body: {
-        'username': 'example_username',
-        'password': 'example_password',
-      },
-    );
+class AuthService {
+  static const String apiUrl = 'http://10.0.2.2:8000/api/login';
 
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Failed to load data');
+  Future<void> login(String emailOrUsername, String password) async {
+    try {
+      final response = await http.post(Uri.parse(apiUrl), body: {
+        'email': emailOrUsername,
+        'password': password,
+      });
+      if (response.statusCode == 200) {
+        print("hai");
+      } else if (response.statusCode == 401) {
+        throw Exception('Invalid email or password');
+      } else {
+        throw Exception('Failed to login');
+      }
+    } catch (e) {
+      print('$e');
+      throw Exception('Failed to login');
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Data Example'),
-      ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: fetchData(),
-        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return Center(child: Text('Data: ${snapshot.data}'));
-          }
-        },
-      ),
-    );
   }
 }

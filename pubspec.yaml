@@ -40,6 +40,7 @@ dependencies:
   # carousel slider:
   # fan_carousel_image_slider: ^0.1.2
   flutter_custom_carousel_slider: ^1.2.0
+  shared_preferences: ^2.1.1
   # carousel_pro:
   # onboarding: ^3.1.0
 
