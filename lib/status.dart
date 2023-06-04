@@ -13,12 +13,56 @@ class _statusState extends State<status> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Status page"),
-        actions: const [],
-      ),
-      body: Center(
-        child: Text('Status screen', style: TextStyle(fontSize: 40)),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Builder(
+                      builder: (context) => IconButton(
+                        icon: Icon(Icons.access_alarms_rounded),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'TOSEPATU',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      Text('Shine Your Shoes',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          )),
+                    ],
+                  ),
+                  Builder(
+                    builder: (context) => IconButton(
+                      icon: Icon(Icons.access_alarms_rounded),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
