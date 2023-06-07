@@ -111,7 +111,7 @@ class StatusApiService {
 }
 
 class ProfileService {
-  Future<Map<String, dynamic>> fetchUserProfile(int idUser) async {
+  Future<Map<String, dynamic>> fetchUserProfile() async {
     final prefs = await SharedPreferences.getInstance();
     final idUser = prefs.getInt('user_id');
 
@@ -119,7 +119,7 @@ class ProfileService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://127.0.0.1:8000/api/apiprofile');
+    final url = Uri.parse('http://10.0.2.2:8000/api/apiprofile');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 

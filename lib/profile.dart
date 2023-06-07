@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:tosepatu_mobile/API/service.dart';
 import 'package:tosepatu_mobile/login_page.dart';
 
 class profile extends StatefulWidget {
-  const profile({super.key});
+  const profile({Key? key});
 
   @override
   State<profile> createState() => _profileState();
 }
 
 class _profileState extends State<profile> {
+  final ProfileService _profileService = ProfileService();
+  Map<String, dynamic>? _userProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserProfile();
+  }
+
+  Future<void> fetchUserProfile() async {
+    try {
+      final userProfile = await _profileService.fetchUserProfile();
+      setState(() {
+        _userProfile = userProfile;
+      });
+    } catch (e) {
+      print('Error: $e');
+      // Tindakan yang sesuai jika gagal mengambil profil pengguna
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
@@ -46,13 +66,13 @@ class _profileState extends State<profile> {
                 maxHeight: 110.0,
               ),
               width: MediaQuery.of(context).size.width,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: const Color.fromARGB(255, 0, 0, 0),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
               ),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30.0,
                     backgroundImage:
                         NetworkImage("https://i.ibb.co/PGv8ZzG/me.jpg"),
@@ -64,17 +84,17 @@ class _profileState extends State<profile> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text(
-                          "Hello",
+                          "Hello ${_userProfile?['name'] ?? ''}",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10.0,
                           ),
                         ),
                         Text(
-                          "Jhonny Deep",
-                          style: TextStyle(
+                          _userProfile?['email'] ?? '',
+                          style: const TextStyle(
                             fontSize: 16.0,
                             color: Colors.white,
                           ),
@@ -104,7 +124,7 @@ class _profileState extends State<profile> {
               padding: const EdgeInsets.all(20.0),
               child: Builder(
                 builder: (context) {
-                  List items = [
+                  List<Map<String, dynamic>> items = [
                     {
                       "label": "Akun",
                       "icon": Icons.person_2_rounded,
@@ -113,13 +133,14 @@ class _profileState extends State<profile> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Edit Profil'),
-                              content: Text('Pop-up untuk mengedit profil'),
+                              title: const Text('Edit Profil'),
+                              content:
+                                  const Text('Pop-up untuk mengedit profil'),
                               actions: <Widget>[
                                 TextFormField(),
                                 TextFormField(),
                                 ElevatedButton(
-                                  child: Text('Tutup'),
+                                  child: const Text('Tutup'),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -128,7 +149,7 @@ class _profileState extends State<profile> {
                             );
                           },
                         );
-                      }
+                      },
                     },
                     {
                       "label": "Tentang kami",
@@ -138,12 +159,12 @@ class _profileState extends State<profile> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Tentang Kami'),
-                              content: Text(
+                              title: const Text('Tentang Kami'),
+                              content: const Text(
                                   'TOSEPATU adalah Jasa layanan cuci sepatu yang menawarkan pick up and delivery free ongkir khusus daerah sekitar kampus POLIJE jember ,didirikan oleh sekumpulan mahasiswa berawal hanya dari rencana dan kemudian diimplementasikan menjadi sebuah bisnis yang menguntungkan, TOSEPATU didasari oleh keinginan untuk menambah pengalaman,pemasukan kami sebagai mahasiswa.ketika awal beridiri, TOSEPATU kian mendapat banyak perhatian mulai dari kalangan mahasiswa,pekerja,dan kalangan lainnya.'),
                               actions: <Widget>[
                                 ElevatedButton(
-                                  child: Text('Tutup'),
+                                  child: const Text('Tutup'),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -152,7 +173,7 @@ class _profileState extends State<profile> {
                             );
                           },
                         );
-                      }
+                      },
                     },
                   ];
 
@@ -188,7 +209,7 @@ class _profileState extends State<profile> {
                                     item["icon"],
                                     size: 30.0,
                                   ),
-                                  title: Text(item["label"]),
+                                  title: Text(item["label"] as String),
                                   trailing: const Icon(
                                     Icons.chevron_right,
                                   ),
