@@ -85,3 +85,55 @@ class AuthService {
     }
   }
 }
+
+class StatusApiService {
+  static Future<List<dynamic>> getStatusApi() async {
+    final prefs = await SharedPreferences.getInstance();
+    final idUser = prefs.getInt('user_id');
+
+    if (idUser == null) {
+      throw Exception('User ID not found');
+    }
+
+    final url = Uri.parse('http://10.0.2.2:8000/api/apistatus');
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({'id_user': idUser});
+
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return List<dynamic>.from(data);
+    } else {
+      throw Exception('Failed to fetch status');
+    }
+  }
+}
+
+class ProfileService {
+  Future<Map<String, dynamic>> fetchUserProfile(int idUser) async {
+    final prefs = await SharedPreferences.getInstance();
+    final idUser = prefs.getInt('user_id');
+
+    if (idUser == null) {
+      throw Exception('User ID not found');
+    }
+
+    final url = Uri.parse('http://127.0.0.1:8000/api/apiprofile');
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({'id_user': idUser});
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data;
+      } else {
+        throw Exception('Failed to fetch user profile');
+      }
+    } catch (e) {
+      throw Exception('Failed to connect to the server');
+    }
+  }
+}

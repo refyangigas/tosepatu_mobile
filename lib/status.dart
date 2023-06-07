@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
+import 'API/service.dart';
+
 class status extends StatefulWidget {
   const status({super.key});
 
@@ -10,6 +12,25 @@ class status extends StatefulWidget {
 }
 
 class _statusState extends State<status> {
+  List<dynamic> statusList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getStatusData();
+  }
+
+  Future<void> getStatusData() async {
+    try {
+      final data = await StatusApiService.getStatusApi();
+      setState(() {
+        statusList = data;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,71 +81,87 @@ class _statusState extends State<status> {
                   )
                 ],
               ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x3f000000),
-                            offset: Offset(
-                              9,
-                              9,
-                            ),
-                            blurRadius: 5,
-                          ),
-                        ],
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            padding: EdgeInsets.only(left: 10, right: 2),
-                          ),
-                          Expanded(
-                            child: Text("Y"),
-                            flex: 2,
-                          ),
-                          Expanded(
-                            child: Text("Y1"),
-                            flex: 1,
-                          ),
-                          Expanded(
-                            child: Text("Y2"),
-                            flex: 1,
-                          ),
-                          Container(
-                            height: 20,
-                            width: 55,
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: statusList.length,
+                      itemBuilder: (context, index) {
+                        var statusData = statusList[index];
+
+                        return SizedBox(
+                          height: 85,
+                          child: Container(
                             decoration: BoxDecoration(
-                              color: Colors
-                                  .amber, // Warna latar belakang Container
-                              borderRadius: BorderRadius.circular(
-                                  8.0), // Mengatur sudut Container
+                              border: Border.all(color: Colors.grey),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x3f000000),
+                                  offset: Offset(9, 9),
+                                  blurRadius: 5,
+                                ),
+                              ],
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Text(
-                              'Selesai',
-                              style: TextStyle(
-                                fontSize: 16.0, // Ukuran teks
-                                color: Colors.white, // Warna teks
-                              ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 50,
+                                  width: 50,
+                                  padding: EdgeInsets.only(left: 10, right: 2),
+                                  // Tambahkan kode untuk menampilkan gambar atau ikon jika diperlukan
+                                ),
+                                Expanded(
+                                  child: Text(statusData['nama_user']),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  child: Text(statusData['nama_layanan']),
+                                  flex: 2,
+                                ),
+                                Expanded(
+                                  child: Text(statusData['jumlah']),
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    height: 25,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      color: statusData['status'] == 'selesai'
+                                          ? Colors.green
+                                          : Colors.amber,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        statusData['status'],
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          )
-                        ],
-                      )),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

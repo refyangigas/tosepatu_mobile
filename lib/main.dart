@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tosepatu_mobile/splash_screen.dart';
+import 'package:tosepatu_mobile/status.dart';
 
 import 'login_page.dart';
 
