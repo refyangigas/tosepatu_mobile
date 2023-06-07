@@ -136,18 +136,6 @@ class _loginState extends State<login> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
                               )),
-                          // const SizedBox(height: 16.0 * 2),
-                          // Row(
-                          //   children: [
-                          //     const Spacer(),
-                          //     Expanded(
-                          //       flex: 8,
-                          //       child: SvgPicture.network(
-                          //           "https://media.istockphoto.com/id/1356958235/id/foto/metaverse-virtual-reality-blockchain-web3.webp?s=2048x2048&w=is&k=20&c=ect81fcHoGfcTdGB_2k9cl3wTVEPgGoSjuDJ-MUZgFk="),
-                          //     ),
-                          //     const Spacer(),
-                          //   ],
-                          // ),
                           const SizedBox(height: 10 * 5),
                         ],
                       ),
