@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
 
 class AuthService {
-  static const String apiUrl = 'http://10.0.2.2:8000/api/login';
+  static const String apiUrl = 'http://tosepatu.wdmif.id/api/login';
 
   Future<void> login(String emailOrUsername, String password) async {
     try {
@@ -52,7 +55,7 @@ class AuthService {
     }
   }
 
-  static const String apiUrlr = 'http://10.0.2.2:8000/api/register';
+  static const String apiUrlr = 'http://tosepatu.wdmif.id/api/register';
 
   Future<void> register(String name, String email, String password) async {
     try {
@@ -95,7 +98,31 @@ class StatusApiService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://10.0.2.2:8000/api/apistatus');
+    final url = Uri.parse('http://tosepatu.wdmif.id/api/apistatus');
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({'id_user': idUser});
+
+    final response = await http.post(url, headers: headers, body: body);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return List<dynamic>.from(data);
+    } else {
+      throw Exception('Failed to fetch status');
+    }
+  }
+}
+
+class PembayaranApiService {
+  static Future<List<dynamic>> getPembayaranApi() async {
+    final prefs = await SharedPreferences.getInstance();
+    final idUser = prefs.getInt('user_id');
+
+    if (idUser == null) {
+      throw Exception('User ID not found');
+    }
+
+    final url = Uri.parse('http://tosepatu.wdmif.id/api/apipembayaran');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -119,7 +146,7 @@ class ProfileService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://10.0.2.2:8000/api/apiprofile');
+    final url = Uri.parse('http://tosepatu.wdmif.id/api/apiprofile');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -134,6 +161,78 @@ class ProfileService {
       }
     } catch (e) {
       throw Exception('Failed to connect to the server');
+    }
+  }
+
+  Future<void> updateUserProfile({
+    String? name,
+    String? email,
+    String? password,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    final idUser = prefs.getInt('user_id');
+
+    if (idUser == null) {
+      throw Exception('User ID not found');
+    }
+
+    final url = Uri.parse('http://tosepatu.wdmif.id/api/updateprofile');
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      'id_user': idUser,
+      if (name != null) 'name': name,
+      if (email != null) 'email': email,
+      if (password != null) 'password': password,
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        // Successfully updated the user profile
+      } else {
+        throw Exception('Failed to update user profile');
+      }
+    } catch (e) {
+      print('$e');
+      throw Exception('Failed to connect to the server');
+    }
+  }
+}
+
+class LayananService {
+  static Future<List<dynamic>> fetchLayananList(String apiUrl) async {
+    final response =
+        await http.get(Uri.parse('http://tosepatu.wdmif.id/api/apilayanan'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data;
+    } else {
+      throw Exception('Failed to fetch layanan list');
+    }
+  }
+}
+
+class UploadService {
+  Future<void> uploadBukti(int id, File bukti) async {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(
+          'http://tosepatu.wdmif.id/api/apibukti'), // Ganti URL_ENDPOINT dengan URL endpoint service Anda
+    );
+
+    request.fields['id'] = id.toString();
+    request.files.add(await http.MultipartFile.fromPath('bukti', bukti.path));
+
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        print('Bukti berhasil diunggah');
+      } else {
+        print('Gagal mengunggah bukti. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Terjadi kesalahan saat mengunggah bukti: $e');
     }
   }
 }

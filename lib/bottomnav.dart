@@ -13,7 +13,7 @@ class bottomnav extends StatefulWidget {
 
 class _bottomnavState extends State<bottomnav> {
   int currentTab = 0;
-  final List<Widget> screens = [status(), orders(), messages(), profile()];
+  final List<Widget> screens = [status(), ordersPage(), messages(), profile()];
 
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = dashboard();
@@ -75,7 +75,7 @@ class _bottomnavState extends State<bottomnav> {
                       minWidth: 115,
                       onPressed: () {
                         setState(() {
-                          currentScreen = orders();
+                          currentScreen = ordersPage();
                           currentTab = 1;
                         });
                       },

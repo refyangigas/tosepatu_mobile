@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tosepatu_mobile/API/service.dart';
 import 'package:tosepatu_mobile/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class profile extends StatefulWidget {
   const profile({Key? key});
@@ -12,11 +13,52 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   final ProfileService _profileService = ProfileService();
   Map<String, dynamic>? _userProfile;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetchUserProfile();
+  }
+
+  void saveUserProfile() {
+    final String name = nameController.text;
+    final String email = emailController.text;
+    final String password = passwordController.text;
+
+    try {
+      _profileService.updateUserProfile(
+        name: name,
+        email: email,
+        password: password,
+      );
+      // Tindakan yang sesuai setelah berhasil menyimpan data
+      showSuccessSnackbar('Profil berhasil diperbarui');
+    } catch (e) {
+      print('Error: $e');
+      // Tindakan yang sesuai jika gagal menyimpan data
+      showErrorSnackbar('Gagal menyimpan profil');
+    }
+  }
+
+  void showSuccessSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  void showErrorSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   Future<void> fetchUserProfile() async {
@@ -44,7 +86,11 @@ class _profileState extends State<profile> {
         title: const Text("Profile"),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+              // Hapus shared preferences di sini
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => login()),
@@ -134,15 +180,48 @@ class _profileState extends State<profile> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: const Text('Edit Profil'),
-                              content:
-                                  const Text('Pop-up untuk mengedit profil'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextFormField(
+                                    controller:
+                                        nameController, // Gunakan controller untuk field nama
+                                    decoration: const InputDecoration(
+                                      labelText: 'Nama',
+                                      hintText: 'Masukkan nama',
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    controller: emailController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Email',
+                                      hintText: 'Masukkan email',
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    controller:
+                                        passwordController, // Gunakan controller untuk field password
+                                    decoration: const InputDecoration(
+                                      labelText: 'Password',
+                                    ),
+                                    obscureText: true,
+                                  ),
+                                ],
+                              ),
                               actions: <Widget>[
-                                TextFormField(),
-                                TextFormField(),
                                 ElevatedButton(
-                                  child: const Text('Tutup'),
+                                  child: const Text('Simpan'),
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    saveUserProfile();
+                                    Navigator.of(context)
+                                        .pop(); // Tutup dialog setelah menyimpan
+                                  },
+                                ),
+                                ElevatedButton(
+                                  child: const Text('Batal'),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(); // Tutup dialog tanpa menyimpan
                                   },
                                 ),
                               ],
