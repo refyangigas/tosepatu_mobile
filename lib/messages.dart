@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tosepatu_mobile/API/service.dart';
+import 'package:intl/intl.dart';
 
 class messages extends StatefulWidget {
   const messages({Key? key});
@@ -102,7 +103,8 @@ class _messagesState extends State<messages> {
                 itemCount: statusList.length,
                 itemBuilder: (context, index) {
                   var statusData = statusList[index];
-
+                  var total = double.parse(statusData['total']);
+                  var formatter = NumberFormat('#,###', 'en_US');
                   return SizedBox(
                     height: 85,
                     child: Container(
@@ -144,26 +146,34 @@ class _messagesState extends State<messages> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text('Unggah File'),
+                                    title: Text('Pembayaran'),
                                     content: SingleChildScrollView(
                                       child: ConstrainedBox(
                                         constraints: BoxConstraints(
                                           maxHeight: MediaQuery.of(context)
                                                   .size
                                                   .height /
-                                              4,
+                                              2,
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.5,
                                         ),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Image.asset(
-                                              'assets/images/card1.png',
-                                              width: 100,
-                                              height: 100,
+                                              'assets/images/pembayaran.jpg',
+                                              width: 500,
+                                              height: 300,
                                             ),
                                             SizedBox(height: 10),
-                                            Text('Deskripsi gambar'),
+                                            Text('Total Pembayaran:  Rp ' +
+                                                formatter
+                                                    .format(total)
+                                                    .replaceAll(',', '.') +
+                                                ''),
                                             SizedBox(height: 10),
                                             ElevatedButton.icon(
                                               onPressed: () async {
@@ -179,8 +189,8 @@ class _messagesState extends State<messages> {
                                                       statusData['id']);
                                                 }
                                               },
-                                              icon: Icon(Icons.image),
-                                              label: Text('Pilih gambar'),
+                                              icon: Icon(Icons.upload),
+                                              label: Text('Uploud Bukti'),
                                             ),
                                           ],
                                         ),
@@ -204,9 +214,9 @@ class _messagesState extends State<messages> {
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.upload),
+                                Icon(Icons.monetization_on),
                                 SizedBox(width: 10),
-                                Text('Unggah File'),
+                                Text('Pembayaran'),
                               ],
                             ),
                           ),

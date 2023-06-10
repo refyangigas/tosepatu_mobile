@@ -13,6 +13,17 @@ class status extends StatefulWidget {
 
 class _statusState extends State<status> {
   List<dynamic> statusList = [];
+  Color _getStatusColor(String status) {
+    if (status == 'Belum Selesai') {
+      return Colors.red;
+    } else if (status == 'Proses') {
+      return Colors.blue;
+    } else if (status == 'Selesai') {
+      return Colors.green;
+    } else {
+      return Colors.amber;
+    }
+  }
 
   @override
   void initState() {
@@ -135,9 +146,8 @@ class _statusState extends State<status> {
                                     height: 25,
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: statusData['status'] == 'selesai'
-                                          ? Colors.green
-                                          : Colors.amber,
+                                      color:
+                                          _getStatusColor(statusData['status']),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Center(

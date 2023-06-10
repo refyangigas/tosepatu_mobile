@@ -118,11 +118,6 @@ class _profileState extends State<profile> {
               ),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage:
-                        NetworkImage("https://i.ibb.co/PGv8ZzG/me.jpg"),
-                  ),
                   const SizedBox(
                     width: 8.0,
                   ),

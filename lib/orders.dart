@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tosepatu_mobile/slider/slideorder.dart';
+import 'package:tosepatu_mobile/slider/slider.dart';
 
 import 'API/service.dart';
 
@@ -86,12 +88,7 @@ class _ordersPageState extends State<ordersPage> {
               ),
               Column(
                 children: [
-                  Image.asset(
-                    "assets/images/card1.png",
-                    width: MediaQuery.of(context).size.height / 3,
-                    height: MediaQuery.of(context).size.height / 3,
-                    fit: BoxFit.fill,
-                  ),
+                  sliderorder(),
                   SizedBox(
                     height: 20,
                   ),

@@ -108,11 +108,11 @@ class _bottomnavState extends State<bottomnav> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.mark_as_unread_sharp,
+                            Icons.payment_sharp,
                             color: currentTab == 3 ? Colors.amber : Colors.grey,
                           ),
                           Text(
-                            'Messages',
+                            'Pembayaran',
                             style: TextStyle(
                                 color: currentTab == 3
                                     ? Colors.amber
