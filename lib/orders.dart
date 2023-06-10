@@ -16,11 +16,26 @@ class _ordersPageState extends State<ordersPage> {
   String? _selectedLayanan;
   List<dynamic> _pengirimanList = [];
   String? _selectedPengiriman;
+  List<dynamic> _penjemputanList = [];
+  String? _selectedPenjemputan;
   @override
   void initState() {
     super.initState();
     _loadLayananList();
     _loadPengirimanList();
+    _loadPenjemputanList();
+  }
+
+  Future<void> _loadPenjemputanList() async {
+    try {
+      final penjemputanList =
+          await PenjemputanService.fetchPenjemputanList('URL_API_ANDA');
+      setState(() {
+        _penjemputanList = penjemputanList;
+      });
+    } catch (e) {
+      print('Failed to load layanan list: $e');
+    }
   }
 
   Future<void> _loadPengirimanList() async {
@@ -109,7 +124,7 @@ class _ordersPageState extends State<ordersPage> {
                   Center(
                     child: SingleChildScrollView(
                       child: Container(
-                        height: MediaQuery.of(context).size.height / 1.5,
+                        height: MediaQuery.of(context).size.height / 1.3,
                         width: MediaQuery.of(context).size.width / 1.1,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -128,19 +143,6 @@ class _ordersPageState extends State<ordersPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              TextField(
-                                decoration: InputDecoration(
-                                  labelText: 'Nama',
-                                  labelStyle: TextStyle(color: Colors.grey),
-                                  filled: true,
-                                  fillColor: Colors.grey.withOpacity(0.2),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10),
                               DropdownButtonFormField<String>(
                                 decoration: InputDecoration(
                                   labelText: 'Jenis Layanan',
@@ -197,6 +199,37 @@ class _ordersPageState extends State<ordersPage> {
                                   return DropdownMenuItem<String>(
                                     value: pengirimanId,
                                     child: Text(pengirimanName),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(height: 10),
+                              DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  labelText: 'Jenis Penjemputan',
+                                  labelStyle: TextStyle(color: Colors.grey),
+                                  filled: true,
+                                  fillColor: Colors.grey.withOpacity(0.2),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                                value: _selectedPenjemputan,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    _selectedPenjemputan = newValue;
+                                  });
+                                },
+                                items: _penjemputanList.map((item) {
+                                  final penjemputan =
+                                      item as Map<String, dynamic>;
+                                  final penjemputanId =
+                                      penjemputan['id'].toString();
+                                  final penjemputanName =
+                                      penjemputan['name'].toString();
+                                  return DropdownMenuItem<String>(
+                                    value: penjemputanId,
+                                    child: Text(penjemputanName),
                                   );
                                 }).toList(),
                               ),

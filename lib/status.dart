@@ -107,64 +107,69 @@ class _statusState extends State<status> {
 
                         return SizedBox(
                           height: 85,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x3f000000),
-                                  offset: Offset(9, 9),
-                                  blurRadius: 5,
-                                ),
-                              ],
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  padding: EdgeInsets.only(left: 10, right: 2),
-                                  // Tambahkan kode untuk menampilkan gambar atau ikon jika diperlukan
-                                ),
-                                Expanded(
-                                  child: Text(statusData['nama_user']),
-                                  flex: 1,
-                                ),
-                                Expanded(
-                                  child: Text(statusData['nama_layanan']),
-                                  flex: 2,
-                                ),
-                                Expanded(
-                                  child: Text(statusData['jumlah']),
-                                  flex: 1,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    height: 25,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          _getStatusColor(statusData['status']),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        statusData['status'],
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x3f000000),
+                                    offset: Offset(9, 9),
+                                    blurRadius: 5,
+                                  ),
+                                ],
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    width: 50,
+                                    padding:
+                                        EdgeInsets.only(left: 10, right: 2),
+                                    // Tambahkan kode untuk menampilkan gambar atau ikon jika diperlukan
+                                  ),
+                                  Expanded(
+                                    child: Text(statusData['nama_user']),
+                                    flex: 1,
+                                  ),
+                                  Expanded(
+                                    child: Text(statusData['nama_layanan']),
+                                    flex: 2,
+                                  ),
+                                  Expanded(
+                                    child: Text(statusData['jumlah']),
+                                    flex: 1,
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      height: 25,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: _getStatusColor(
+                                            statusData['status']),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          statusData['status'],
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                              ],
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
