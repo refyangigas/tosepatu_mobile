@@ -14,11 +14,25 @@ class ordersPage extends StatefulWidget {
 class _ordersPageState extends State<ordersPage> {
   List<dynamic> _layananList = [];
   String? _selectedLayanan;
-
+  List<dynamic> _pengirimanList = [];
+  String? _selectedPengiriman;
   @override
   void initState() {
     super.initState();
     _loadLayananList();
+    _loadPengirimanList();
+  }
+
+  Future<void> _loadPengirimanList() async {
+    try {
+      final pengirimanList =
+          await PengirimanService.fetchPengirimanList('URL_API_ANDA');
+      setState(() {
+        _pengirimanList = pengirimanList;
+      });
+    } catch (e) {
+      print('Failed to load layanan list: $e');
+    }
   }
 
   Future<void> _loadLayananList() async {
@@ -95,7 +109,7 @@ class _ordersPageState extends State<ordersPage> {
                   Center(
                     child: SingleChildScrollView(
                       child: Container(
-                        height: MediaQuery.of(context).size.height / 1.7,
+                        height: MediaQuery.of(context).size.height / 1.5,
                         width: MediaQuery.of(context).size.width / 1.1,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -152,6 +166,37 @@ class _ordersPageState extends State<ordersPage> {
                                   return DropdownMenuItem<String>(
                                     value: layananId,
                                     child: Text(layananName),
+                                  );
+                                }).toList(),
+                              ),
+                              SizedBox(height: 10),
+                              DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  labelText: 'Jenis Pengiriman',
+                                  labelStyle: TextStyle(color: Colors.grey),
+                                  filled: true,
+                                  fillColor: Colors.grey.withOpacity(0.2),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                                value: _selectedPengiriman,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    _selectedPengiriman = newValue;
+                                  });
+                                },
+                                items: _pengirimanList.map((item) {
+                                  final pengiriman =
+                                      item as Map<String, dynamic>;
+                                  final pengirimanId =
+                                      pengiriman['id'].toString();
+                                  final pengirimanName =
+                                      pengiriman['name'].toString();
+                                  return DropdownMenuItem<String>(
+                                    value: pengirimanId,
+                                    child: Text(pengirimanName),
                                   );
                                 }).toList(),
                               ),

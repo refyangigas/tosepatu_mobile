@@ -214,6 +214,32 @@ class LayananService {
   }
 }
 
+class PenjemputanService {
+  static Future<List<dynamic>> fetchPenjemputanList(String apiUrl) async {
+    final response = await http
+        .get(Uri.parse('http://tosepatu.wdmif.id/api/apipenjemputan'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data;
+    } else {
+      throw Exception('Failed to fetch layanan list');
+    }
+  }
+}
+
+class PengirimanService {
+  static Future<List<dynamic>> fetchPengirimanList(String apiUrl) async {
+    final response =
+        await http.get(Uri.parse('http://tosepatu.wdmif.id/api/apipengiriman'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data;
+    } else {
+      throw Exception('Failed to fetch layanan list');
+    }
+  }
+}
+
 class UploadService {
   Future<void> uploadBukti(int id, File bukti) async {
     var request = http.MultipartRequest(
