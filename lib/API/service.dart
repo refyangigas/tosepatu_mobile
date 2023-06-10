@@ -90,6 +90,28 @@ class AuthService {
   }
 }
 
+class TransaksiService {
+  static Future<void> createTransaksi(Map<String, dynamic> data) async {
+    final apiUrl = 'http://tosepatu.wdmif.id/api/transaksi';
+
+    try {
+      final response = await http.post(Uri.parse(apiUrl), body: data);
+
+      if (response.statusCode == 201) {
+        final responseData = jsonDecode(response.body);
+        print(responseData);
+      } else {
+        print('Failed to create transaksi: ${response.statusCode}');
+        throw Exception('Failed to create transaksi');
+      }
+    } catch (e) {
+      print(data);
+      print('$e');
+      throw Exception('Failed to create transaksi');
+    }
+  }
+}
+
 class StatusApiService {
   static Future<List<dynamic>> getStatusApi() async {
     final prefs = await SharedPreferences.getInstance();
@@ -205,6 +227,19 @@ class LayananService {
   static Future<List<dynamic>> fetchLayananList(String apiUrl) async {
     final response =
         await http.get(Uri.parse('http://tosepatu.wdmif.id/api/apilayanan'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data;
+    } else {
+      throw Exception('Failed to fetch layanan list');
+    }
+  }
+}
+
+class PembayaranService {
+  static Future<List<dynamic>> fetchPembayaranList(String apiUrl) async {
+    final response = await http
+        .get(Uri.parse('http://tosepatu.wdmif.id/api/apipembayarand'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;

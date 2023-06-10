@@ -36,9 +36,9 @@ class _messagesState extends State<messages> {
   Future<void> uploadData(File bukti, int id) async {
     try {
       await buktiService.uploadBukti(id, bukti);
-      print('File berhasil diunggah ke API');
+      print('File berhasil Mengunggah Foto Silahkan Tunggu');
       Fluttertoast.showToast(
-        msg: 'File berhasil diunggah ke API',
+        msg: 'File berhasil Mengunggah Foto Silahkan Tunggu',
         backgroundColor: Colors.green,
         textColor: Colors.white,
       );
@@ -124,26 +124,23 @@ class _messagesState extends State<messages> {
                           ),
                           child: Row(
                             children: [
-                              Container(
-                                height: 50,
-                                width: 50,
-                                padding: EdgeInsets.only(
-                                    top: 20, left: 10, right: 2),
-                                // Tambahkan kode untuk menampilkan gambar atau ikon jika diperlukan
+                              SizedBox(
+                                width: 15,
                               ),
                               Expanded(
                                 child: Text(statusData['nama_user']),
-                                flex: 1,
-                              ),
-                              Expanded(
-                                child: Text(statusData['nama_layanan']),
                                 flex: 2,
                               ),
                               Expanded(
-                                child: Text(statusData['jumlah']),
-                                flex: 1,
+                                child: Text(statusData['nama_layanan']),
+                                flex: 4,
                               ),
-                              ElevatedButton(
+                              Expanded(child: SizedBox(), flex: 1),
+                              Expanded(
+                                child: Text(statusData['jumlah']),
+                                flex: 2,
+                              ),
+                              ElevatedButton.icon(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -156,11 +153,11 @@ class _messagesState extends State<messages> {
                                               maxHeight: MediaQuery.of(context)
                                                       .size
                                                       .height /
-                                                  2,
+                                                  1.9,
                                               maxWidth: MediaQuery.of(context)
                                                       .size
                                                       .width /
-                                                  1.5,
+                                                  1.4,
                                             ),
                                             child: Column(
                                               crossAxisAlignment:
@@ -172,11 +169,14 @@ class _messagesState extends State<messages> {
                                                   height: 300,
                                                 ),
                                                 SizedBox(height: 10),
-                                                Text('Total Pembayaran:  Rp ' +
-                                                    formatter
-                                                        .format(total)
-                                                        .replaceAll(',', '.') +
-                                                    ''),
+                                                Text(
+                                                  'Total Pembayaran:  Rp ' +
+                                                      formatter
+                                                          .format(total)
+                                                          .replaceAll(
+                                                              ',', '.') +
+                                                      '',
+                                                ),
                                                 SizedBox(height: 10),
                                                 ElevatedButton.icon(
                                                   onPressed: () async {
@@ -184,13 +184,15 @@ class _messagesState extends State<messages> {
                                                         ImagePicker();
                                                     final pickedFile =
                                                         await picker.getImage(
-                                                            source: ImageSource
-                                                                .gallery);
+                                                      source:
+                                                          ImageSource.gallery,
+                                                    );
 
                                                     if (pickedFile != null) {
                                                       uploadData(
-                                                          File(pickedFile.path),
-                                                          statusData['id']);
+                                                        File(pickedFile.path),
+                                                        statusData['id'],
+                                                      );
                                                     }
                                                   },
                                                   icon: Icon(Icons.upload),
@@ -212,16 +214,13 @@ class _messagesState extends State<messages> {
                                     },
                                   );
                                 },
+                                icon: Icon(Icons.monetization_on),
+                                label: Text('Pembayaran'),
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.amber,
                                   onPrimary: Colors.white,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.monetization_on),
-                                    SizedBox(width: 10),
-                                    Text('Pembayaran'),
-                                  ],
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 2),
                                 ),
                               ),
                               SizedBox(width: 10),

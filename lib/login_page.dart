@@ -31,7 +31,7 @@ class _loginState extends State<login> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => bottomnav(),
+          builder: (context) => bottomnav(currentTab: 2),
         ),
       );
     } catch (e) {

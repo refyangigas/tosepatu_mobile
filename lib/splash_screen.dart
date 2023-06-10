@@ -25,7 +25,7 @@ class _splashState extends State<splash> {
         // Pengguna sudah tersimpan di dalam SharedPreferences, langsung navigasi ke bottomnav
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => bottomnav()),
+          MaterialPageRoute(builder: (context) => bottomnav(currentTab: 2)),
         );
       } else {
         // Pengguna belum tersimpan di dalam SharedPreferences, tampilkan onboarding
