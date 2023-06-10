@@ -39,18 +39,19 @@ class AuthService {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      // Simpan setiap elemen di dalam user secara terpisah
-      await prefs.setInt('user_id', user['id']);
-      await prefs.setInt('user_id_role', user['id_role']);
+      await prefs.setInt('user_id', int.parse(user['id'].toString()));
+      await prefs.setInt('user_id_role', int.parse(user['id_role'].toString()));
       await prefs.setString('user_name', user['name']);
       await prefs.setString('user_email', user['email']);
       await prefs.setString(
           'user_email_verified_at', user['email_verified_at']);
       await prefs.setString('user_created_at', user['created_at']);
       await prefs.setString('user_updated_at', user['updated_at']);
+
       final userName = prefs.getString('user_name');
       print('$userName');
     } catch (e) {
+      print('$e');
       throw Exception('Failed to save user data');
     }
   }
