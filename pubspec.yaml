@@ -40,7 +40,7 @@ dependencies:
   flutter_custom_carousel_slider: ^1.2.0
   shared_preferences: ^2.1.1
   http: ^0.13.6
-  image_picker: ^0.8.7+5
+  image_picker: ^0.8.8
   dio: ^5.2.0+1
   fluttertoast: ^8.2.2
   intl: ^0.18.1
