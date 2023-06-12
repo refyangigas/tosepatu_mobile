@@ -69,7 +69,7 @@ class _messagesState extends State<messages> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.email_outlined),
+                    icon: Icon(Icons.payment_rounded),
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
                     },
@@ -90,7 +90,7 @@ class _messagesState extends State<messages> {
                   ],
                 ),
                 IconButton(
-                  icon: Icon(Icons.email_outlined),
+                  icon: Icon(Icons.payment_rounded),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },

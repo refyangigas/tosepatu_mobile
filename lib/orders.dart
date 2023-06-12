@@ -161,8 +161,8 @@ class _ordersPageState extends State<ordersPage> {
                   Center(
                     child: SingleChildScrollView(
                       child: Container(
-                        height: MediaQuery.of(context).size.height / 1.5,
-                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: MediaQuery.of(context).size.height / 1.0,
+                        width: MediaQuery.of(context).size.width / 1.0,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
