@@ -146,18 +146,18 @@ class _profileState extends State<profile> {
                   const SizedBox(
                     width: 8.0,
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: CircleAvatar(
-                      radius: 16.0,
-                      backgroundColor: Colors.blueGrey[900],
-                      child: const Icon(
-                        Icons.edit,
-                        size: 12.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: CircleAvatar(
+                  //     radius: 16.0,
+                  //     backgroundColor: Colors.blueGrey[900],
+                  //     child: const Icon(
+                  //       Icons.edit,
+                  //       size: 12.0,
+                  //       color: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

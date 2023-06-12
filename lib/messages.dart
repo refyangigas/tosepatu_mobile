@@ -103,7 +103,7 @@ class _messagesState extends State<messages> {
                 itemCount: statusList.length,
                 itemBuilder: (context, index) {
                   var statusData = statusList[index];
-                  var total = double.parse(statusData['total']);
+                  var total = double.parse(statusData['total'].toString());
                   var formatter = NumberFormat('#,###', 'en_US');
                   return SizedBox(
                       height: 85,
@@ -153,7 +153,7 @@ class _messagesState extends State<messages> {
                                               maxHeight: MediaQuery.of(context)
                                                       .size
                                                       .height /
-                                                  1.9,
+                                                  1.7,
                                               maxWidth: MediaQuery.of(context)
                                                       .size
                                                       .width /
