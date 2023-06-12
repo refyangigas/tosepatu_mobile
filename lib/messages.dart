@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:tosepatu_mobile/API/service.dart';
-65
 
 class messages extends StatefulWidget {
   const messages({Key? key});
