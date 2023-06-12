@@ -67,7 +67,7 @@ class _bottomnavState extends State<bottomnav> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
-                    minWidth: mediaQuery.size.width / 3.6,
+                    minWidth: mediaQuery.size.width / 4,
                     onPressed: () {
                       setState(() {
                         currentScreen = status();
@@ -91,7 +91,7 @@ class _bottomnavState extends State<bottomnav> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: mediaQuery.size.width / 6,
+                    minWidth: mediaQuery.size.width / 3.9,
                     onPressed: () {
                       setState(() {
                         currentScreen = ordersPage();
@@ -115,7 +115,7 @@ class _bottomnavState extends State<bottomnav> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: mediaQuery.size.width / 4.9,
+                    minWidth: mediaQuery.size.width / 6,
                     onPressed: () {
                       setState(() {
                         currentScreen = messages();
@@ -139,7 +139,7 @@ class _bottomnavState extends State<bottomnav> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: mediaQuery.size.width / 4.9,
+                    minWidth: mediaQuery.size.width / 8,
                     onPressed: () {
                       setState(() {
                         currentScreen = profile();
