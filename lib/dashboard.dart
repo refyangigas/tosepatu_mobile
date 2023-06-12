@@ -50,8 +50,13 @@ class _dashboardState extends State<dashboard> {
                           )),
                     ],
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.amber,
+                  Builder(
+                    builder: (context) => IconButton(
+                      icon: Icon(Icons.sports_hockey_rounded),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    ),
                   )
                 ],
               ),
