@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
 class AuthService {
-  static const String apiUrl = 'http://tosepatu.wdmif.id/api/login';
+  static const String apiUrl = 'https://tosepatu.my.id/api/login';
 
   Future<void> login(String emailOrUsername, String password) async {
     try {
@@ -56,7 +56,7 @@ class AuthService {
     }
   }
 
-  static const String apiUrlr = 'http://tosepatu.wdmif.id/api/register';
+  static const String apiUrlr = 'https://tosepatu.my.id/api/register';
 
   Future<void> register(String name, String email, String password) async {
     try {
@@ -92,7 +92,7 @@ class AuthService {
 
 class TransaksiService {
   static Future<void> createTransaksi(Map<String, dynamic> data) async {
-    final apiUrl = 'http://tosepatu.wdmif.id/api/transaksi';
+    final apiUrl = 'https://tosepatu.my.id/api/transaksi';
 
     try {
       final response = await http.post(Uri.parse(apiUrl), body: data);
@@ -121,7 +121,7 @@ class StatusApiService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://tosepatu.wdmif.id/api/apistatus');
+    final url = Uri.parse('https://tosepatu.my.id/api/apistatus');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -145,7 +145,7 @@ class PembayaranApiService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://tosepatu.wdmif.id/api/apipembayaran');
+    final url = Uri.parse('http://tosepatu.my,id/api/apipembayaran');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -169,7 +169,7 @@ class ProfileService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://tosepatu.wdmif.id/api/apiprofile');
+    final url = Uri.parse('https://tosepatu.my.idapi/apiprofile');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -199,7 +199,7 @@ class ProfileService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://tosepatu.wdmif.id/api/updateprofile');
+    final url = Uri.parse('https://tosepatu.my.id/api/updateprofile');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'id_user': idUser,
@@ -226,7 +226,7 @@ class ProfileService {
 class LayananService {
   static Future<List<dynamic>> fetchLayananList(String apiUrl) async {
     final response =
-        await http.get(Uri.parse('http://tosepatu.wdmif.id/api/apilayanan'));
+        await http.get(Uri.parse('https://tosepatu.my.id/api/apilayanan'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
@@ -238,8 +238,8 @@ class LayananService {
 
 class PembayaranService {
   static Future<List<dynamic>> fetchPembayaranList(String apiUrl) async {
-    final response = await http
-        .get(Uri.parse('http://tosepatu.wdmif.id/api/apipembayarand'));
+    final response =
+        await http.get(Uri.parse('https://tosepatu.my.id/api/apipembayarand'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
@@ -251,8 +251,8 @@ class PembayaranService {
 
 class PenjemputanService {
   static Future<List<dynamic>> fetchPenjemputanList(String apiUrl) async {
-    final response = await http
-        .get(Uri.parse('http://tosepatu.wdmif.id/api/apipenjemputan'));
+    final response =
+        await http.get(Uri.parse('https://tosepatu.my.id/api/apipenjemputan'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
@@ -265,7 +265,7 @@ class PenjemputanService {
 class PengirimanService {
   static Future<List<dynamic>> fetchPengirimanList(String apiUrl) async {
     final response =
-        await http.get(Uri.parse('http://tosepatu.wdmif.id/api/apipengiriman'));
+        await http.get(Uri.parse('https://tosepatu.my.id/api/apipengiriman'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
@@ -280,7 +280,7 @@ class UploadService {
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(
-          'http://tosepatu.wdmif.id/api/apibukti'), // Ganti URL_ENDPOINT dengan URL endpoint service Anda
+          'https://tosepatu.my.id/api/apibukti'), // Ganti URL_ENDPOINT dengan URL endpoint service Anda
     );
 
     request.fields['id'] = id.toString();
