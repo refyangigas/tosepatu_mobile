@@ -239,7 +239,7 @@ class LayananService {
 class PembayaranService {
   static Future<List<dynamic>> fetchPembayaranList(String apiUrl) async {
     final response =
-        await http.get(Uri.parse('https://tosepatu.my.id/api/apipembayaran'));
+        await http.get(Uri.parse('https://tosepatu.my.id/api/apipembayarand'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
