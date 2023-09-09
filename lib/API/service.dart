@@ -92,7 +92,7 @@ class AuthService {
 
 class TransaksiService {
   static Future<void> createTransaksi(Map<String, dynamic> data) async {
-    String apiUrl = 'https://tosepatu.my.id/api/transaksi';
+     const apiUrl = 'https://tosepatu.my.id/api/transaksi';
 
     try {
       final response = await http.post(Uri.parse(apiUrl), body: data);
