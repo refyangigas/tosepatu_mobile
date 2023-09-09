@@ -92,13 +92,13 @@ class AuthService {
 
 class TransaksiService {
   static Future<void> createTransaksi(Map<String, dynamic> data) async {
-    final apiUrl = 'https://tosepatu.my.id/api/transaksi';
+    String apiUrl = 'https://tosepatu.my.id/api/transaksi';
 
     try {
       final response = await http.post(Uri.parse(apiUrl), body: data);
 
       if (response.statusCode == 201) {
-        final responseData = jsonDecode(response.body);
+        final responseData = json.decode(response.body);
         print(responseData);
       } else {
         print('Failed to create transaksi: ${response.statusCode}');
@@ -145,7 +145,7 @@ class PembayaranApiService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('http://tosepatu.my,id/api/apipembayaran');
+    final url = Uri.parse('http://tosepatu.my.id/api/apipembayaran');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -169,7 +169,7 @@ class ProfileService {
       throw Exception('User ID not found');
     }
 
-    final url = Uri.parse('https://tosepatu.my.idapi/apiprofile');
+    final url = Uri.parse('https://tosepatu.my.id/api/apiprofile');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'id_user': idUser});
 
@@ -239,7 +239,7 @@ class LayananService {
 class PembayaranService {
   static Future<List<dynamic>> fetchPembayaranList(String apiUrl) async {
     final response =
-        await http.get(Uri.parse('https://tosepatu.my.id/api/apipembayarand'));
+        await http.get(Uri.parse('https://tosepatu.my.id/api/apipembayaran'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List<dynamic>;
       return data;
